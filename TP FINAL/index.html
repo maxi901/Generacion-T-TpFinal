@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timesheet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .form-container {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Timesheet</h1>
+    <div class="form-container">
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" required><br>
+
+        <label for="proyecto">Proyecto/Tarea:</label>
+        <input type="text" id="proyecto" required><br>
+
+        <label for="horas">Horas trabajadas:</label>
+        <input type="number" id="horas" min="1" max="24" required><br>
+
+        <button onclick="agregarEntrada()">Agregar</button>
+    </div>
+
+    <table id="timesheetTable">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Proyecto/Tarea</th>
+                <th>Horas trabajadas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Las entradas se agregarán aquí -->
+        </tbody>
+    </table>
+
+    <script>
+        function agregarEntrada() {
+            // Obtener los valores de los campos
+            const fecha = document.getElementById('fecha').value;
+            const proyecto = document.getElementById('proyecto').value;
+            const horas = document.getElementById('horas').value;
+
+            if (fecha && proyecto && horas) {
+                // Crear una nueva fila en la tabla
+                const table = document.getElementById('timesheetTable').getElementsByTagName('tbody')[0];
+                const newRow = table.insertRow();
+
+                // Agregar las celdas a la fila
+                const fechaCell = newRow.insertCell(0);
+                const proyectoCell = newRow.insertCell(1);
+                const horasCell = newRow.insertCell(2);
+
+                // Asignar los valores ingresados a las celdas
+                fechaCell.textContent = fecha;
+                proyectoCell.textContent = proyecto;
+                horasCell.textContent = horas;
+
+                // Limpiar los campos del formulario
+                document.getElementById('fecha').value = '';
+                document.getElementById('proyecto').value = '';
+                document.getElementById('horas').value = '';
+            } else {
+                alert('Por favor, complete todos los campos.');
+            }
+        }
+    </script>
+</body>
+</html>
